@@ -1,6 +1,6 @@
 # Crescent House Publishing - Front End
 
-A modern Next.js front-end application for Crescent House Publishing.
+A modern Next.js front-end application for Crescent House Publishing. Browse and discover e-books with a beautiful dark-themed interface.
 
 ## Tech Stack
 
@@ -8,6 +8,8 @@ A modern Next.js front-end application for Crescent House Publishing.
 - **React 19** - JavaScript library for building user interfaces
 - **TypeScript** - Static type checking
 - **Tailwind CSS 4** - Utility-first CSS framework
+- **Shadcn UI** - High-quality React components built with Radix UI
+- **Lucide React** - Beautiful icon library
 
 ## Getting Started
 
@@ -57,17 +59,31 @@ Run ESLint to check code quality:
 npm run lint
 ```
 
+## Features
+
+- 🌙 **Dark Theme** - Beautiful dark mode interface by default
+- 📚 **E-book Showcase** - Grid layout displaying featured e-books
+- 🎨 **Modern UI** - Built with Shadcn UI components
+- 📱 **Responsive Design** - Works seamlessly on all devices
+- ⚡ **Fast Performance** - Optimized with Next.js 16
+
 ## Project Structure
 
 ```
 crescent-house-publishing-front-end/
 ├── app/                    # Next.js App Router
-│   ├── layout.tsx         # Root layout
-│   ├── page.tsx           # Home page
-│   └── globals.css        # Global styles
-├── public/                # Static assets
-├── LICENSE                # License file
-└── package.json           # Dependencies and scripts
+│   ├── layout.tsx         # Root layout with dark mode
+│   ├── page.tsx           # Home page with e-book grid
+│   └── globals.css        # Global styles and theme variables
+├── components/            # React components
+│   └── ui/               # Shadcn UI components
+│       ├── button.tsx
+│       └── card.tsx
+├── lib/                  # Utility functions
+│   └── utils.ts
+├── public/               # Static assets
+├── LICENSE               # License file
+└── package.json          # Dependencies and scripts
 ```
 
 ## License
