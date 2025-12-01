@@ -1,14 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { ChevronDown, ChevronUp } from "lucide-react";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+import { X, BookOpen } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface SampleChapterProps {
   content: string;
@@ -18,89 +14,116 @@ interface SampleChapterProps {
 export function SampleChapter({ content, bookTitle }: SampleChapterProps) {
   const [isOpen, setIsOpen] = useState(false);
 
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
+
   return (
-    <div className="mt-12 border-t pt-8">
-      <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-        <CollapsibleTrigger className="flex w-full items-center justify-between rounded-lg bg-muted/50 px-6 py-4 text-left transition-colors hover:bg-muted">
-          <div>
-            <h2 className="text-2xl font-bold">Read Sample First Chapter</h2>
-            <p className="text-sm text-muted-foreground mt-1">
-              Get a taste of {bookTitle}
-            </p>
-          </div>
-          {isOpen ? (
-            <ChevronUp className="h-6 w-6 text-muted-foreground transition-transform" />
-          ) : (
-            <ChevronDown className="h-6 w-6 text-muted-foreground transition-transform" />
-          )}
-        </CollapsibleTrigger>
-        
-        <CollapsibleContent className="mt-6">
-          <div className="prose prose-slate dark:prose-invert max-w-none rounded-lg border bg-card p-8">
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              components={{
-                h1: ({ children, ...props }) => (
-                  <h1 className="text-3xl font-bold mb-4 mt-8 first:mt-0" {...props}>
-                    {children}
-                  </h1>
-                ),
-                h2: ({ children, ...props }) => (
-                  <h2 className="text-2xl font-bold mb-3 mt-6" {...props}>
-                    {children}
-                  </h2>
-                ),
-                h3: ({ children, ...props }) => (
-                  <h3 className="text-xl font-bold mb-2 mt-4" {...props}>
-                    {children}
-                  </h3>
-                ),
-                p: ({ children, ...props }) => (
-                  <p className="mb-4 leading-7 text-foreground" {...props}>
-                    {children}
+    <div className="max-w-4xl mx-auto">
+      <div className="flex justify-center">
+        <Button 
+          variant="outline" 
+          size="lg" 
+          onClick={() => setIsOpen(true)}
+          className="h-14 px-8 border-primary/40 text-primary hover:bg-primary hover:text-primary-foreground transition-all uppercase tracking-widest text-sm font-medium"
+        >
+          <BookOpen className="mr-2 h-4 w-4" />
+          Read First Chapter
+        </Button>
+      </div>
+
+      {isOpen && (
+        <div 
+          className="fixed inset-0 z-[100] bg-background/80 backdrop-blur-md flex items-center justify-center animate-in fade-in duration-300 p-4 md:p-8"
+          onClick={() => setIsOpen(false)}
+        >
+          <div 
+            className="w-full max-w-2xl bg-card border border-border/40 shadow-2xl rounded-lg flex flex-col max-h-full relative overflow-hidden animate-in zoom-in-95 duration-300 slide-in-from-bottom-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-border/20 bg-card/50 backdrop-blur-sm sticky top-0 z-10">
+              <div className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
+                Reading Sample
+              </div>
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                onClick={() => setIsOpen(false)}
+                className="rounded-full h-8 w-8 hover:bg-primary/10 hover:text-primary"
+              >
+                <X className="h-4 w-4" />
+                <span className="sr-only">Close</span>
+              </Button>
+            </div>
+
+            {/* Content - Scrollable Area */}
+            <div className="flex-1 overflow-y-auto p-6 md:p-12 custom-scrollbar">
+              <div className="prose prose-invert prose-lg max-w-none font-serif leading-loose text-foreground/90 prose-headings:font-display prose-headings:font-medium prose-p:text-lg prose-p:leading-8 prose-blockquote:border-primary/50 prose-blockquote:text-primary/80 prose-blockquote:italic">
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    h1: ({ children, ...props }) => (
+                      <div className="text-center mb-12 mt-4">
+                        <span className="block text-xs uppercase tracking-[0.3em] text-primary mb-3 font-sans font-medium">
+                          {bookTitle}
+                        </span>
+                        <h1 className="text-3xl md:text-4xl mb-4" {...props}>
+                          {children}
+                        </h1>
+                        <div className="w-12 h-0.5 bg-primary/30 mx-auto rounded-full" />
+                      </div>
+                    ),
+                    h2: ({ children, ...props }) => (
+                      <h2 className="text-2xl mt-12 mb-6 text-center italic" {...props}>
+                        {children}
+                      </h2>
+                    ),
+                    p: ({ children, ...props }) => (
+                      <p className="mb-6 text-[1.05rem] md:text-[1.125rem] leading-[1.8]" {...props}>
+                        {children}
+                      </p>
+                    ),
+                    strong: ({ children, ...props }) => (
+                      <strong className="font-bold text-primary" {...props}>
+                        {children}
+                      </strong>
+                    ),
+                    hr: ({ ...props }) => (
+                      <div className="my-10 text-center text-primary/40 text-xl">
+                        ***
+                      </div>
+                    )
+                  }}
+                >
+                  {content}
+                </ReactMarkdown>
+                
+                <div className="text-center mt-16 pt-8 border-t border-border/20">
+                  <p className="text-base text-muted-foreground italic mb-6 font-serif">
+                    Enjoyed the preview?
                   </p>
-                ),
-                ul: ({ children, ...props }) => (
-                  <ul className="mb-4 ml-6 list-disc" {...props}>
-                    {children}
-                  </ul>
-                ),
-                ol: ({ children, ...props }) => (
-                  <ol className="mb-4 ml-6 list-decimal" {...props}>
-                    {children}
-                  </ol>
-                ),
-                blockquote: ({ children, ...props }) => (
-                  <blockquote
-                    className="border-l-4 border-primary pl-4 italic my-4 text-muted-foreground"
-                    {...props}
+                  <Button 
+                    variant="outline"
+                    onClick={() => setIsOpen(false)}
+                    className="border-primary/30 hover:bg-primary hover:text-primary-foreground transition-colors text-xs uppercase tracking-widest h-10 px-6"
                   >
-                    {children}
-                  </blockquote>
-                ),
-                code: ({ children, ...props }) => (
-                  <code
-                    className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm"
-                    {...props}
-                  >
-                    {children}
-                  </code>
-                ),
-                pre: ({ children, ...props }) => (
-                  <pre
-                    className="overflow-x-auto rounded-lg bg-muted p-4 mb-4"
-                    {...props}
-                  >
-                    {children}
-                  </pre>
-                ),
-              }}
-            >
-              {content}
-            </ReactMarkdown>
+                    Continue to Purchase
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
-        </CollapsibleContent>
-      </Collapsible>
+        </div>
+      )}
     </div>
   );
 }

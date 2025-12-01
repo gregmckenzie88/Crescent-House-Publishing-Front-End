@@ -16,16 +16,16 @@ export function EbookCard({ ebook, imagePosition }: EbookCardProps) {
 
   return (
     <div
-      className={`flex flex-col gap-6 p-6 rounded-lg border border-border hover:border-primary/50 transition-colors max-w-5xl mx-auto ${
+      className={`flex flex-col gap-8 md:gap-12 p-8 rounded-xl border border-border/30 bg-card/40 hover:bg-card/60 hover:border-primary/30 hover:shadow-[0_0_30px_-10px_rgba(var(--primary),0.1)] transition-all duration-500 max-w-5xl mx-auto group ${
         imagePosition === "left" ? "md:flex-row" : "md:flex-row-reverse"
       }`}
     >
-      {/* Image Section - Clickable - Fixed size for better proportions */}
+      {/* Image Section - Clickable */}
       <Link
         href={detailsUrl}
-        className="flex-shrink-0 mx-auto md:mx-0 group"
+        className="flex-shrink-0 mx-auto md:mx-0 relative"
       >
-        <div className="relative w-[280px] h-[280px] rounded-lg overflow-hidden group-hover:ring-2 group-hover:ring-primary group-hover:shadow-lg transition-all">
+        <div className="relative w-[280px] h-[280px] rounded-md overflow-hidden shadow-2xl transition-transform duration-500 group-hover:-translate-y-2 group-hover:shadow-primary/20">
           <Image
             src={imagePath}
             alt={`${ebook.title} cover`}
@@ -33,31 +33,38 @@ export function EbookCard({ ebook, imagePosition }: EbookCardProps) {
             className="object-cover"
             sizes="280px"
           />
+          {/* Shine effect */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
         </div>
       </Link>
 
-      {/* Content Section - Flows naturally beside image */}
-      <div className="flex-1 flex flex-col justify-center gap-3 min-w-0">
-        <div className="flex flex-wrap items-center gap-2">
-          <h3 className="text-2xl font-bold">{ebook.title}</h3>
-          <Badge variant="secondary" className="text-xs">
-            {calculatePageCount(ebook.wordCount)} pages
-          </Badge>
-          <Badge variant="secondary" className="text-xs">
-            {calculateReadingTime(ebook.wordCount)}
-          </Badge>
+      {/* Content Section */}
+      <div className="flex-1 flex flex-col justify-center gap-6 min-w-0 text-center md:text-left">
+        <div>
+          <h3 className="text-3xl md:text-4xl font-serif font-medium text-foreground mb-2">
+            <Link href={detailsUrl} className="hover:text-primary transition-colors">
+              {ebook.title}
+            </Link>
+          </h3>
+          <p className="text-lg text-primary/80 font-serif italic mb-4">
+            by {ebook.author.name}
+          </p>
+          
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 text-sm text-muted-foreground/80 uppercase tracking-wider font-medium">
+            <span>{calculatePageCount(ebook.wordCount)} pages</span>
+            <span className="w-1 h-1 rounded-full bg-primary/40" />
+            <span>{calculateReadingTime(ebook.wordCount)}</span>
+          </div>
         </div>
         
-        <p className="text-sm text-muted-foreground">
-          by {ebook.author.name}
-        </p>
+        <div className="relative">
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed line-clamp-3 font-light">
+            {ebook.summary.under120}
+          </p>
+        </div>
         
-        <p className="text-sm text-foreground leading-relaxed line-clamp-4">
-          {ebook.summary.under120}
-        </p>
-        
-        <div className="mt-2">
-          <Button asChild size="default">
+        <div className="pt-2">
+          <Button asChild variant="outline" className="border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 uppercase tracking-widest text-xs h-10 px-6">
             <Link href={detailsUrl}>View Details</Link>
           </Button>
         </div>
