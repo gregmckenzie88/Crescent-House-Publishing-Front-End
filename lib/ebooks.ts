@@ -69,3 +69,25 @@ export async function getEbookBySlug(
   }
 }
 
+/**
+ * Get sample chapter content for an e-book
+ * Server-side only function
+ */
+export async function getSampleChapter(slug: string): Promise<string | null> {
+  const sampleChapterPath = path.join(
+    process.cwd(),
+    "data",
+    "ebooks",
+    slug,
+    "sample-chapter.md"
+  );
+  
+  try {
+    const content = fs.readFileSync(sampleChapterPath, "utf-8");
+    return content;
+  } catch (error) {
+    console.error(`Error reading sample chapter for ${slug}:`, error);
+    return null;
+  }
+}
+

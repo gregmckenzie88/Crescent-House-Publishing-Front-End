@@ -19,6 +19,7 @@ export interface EbookMetadata {
     audiobookAmazonLink: string | null;
     audiobookAppleLink: string | null;
   };
+  sampleChapterPath?: string;
 }
 
 export interface EbookWithSlug extends EbookMetadata {

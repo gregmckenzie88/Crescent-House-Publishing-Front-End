@@ -18,5 +18,6 @@
     "ebookAppleLink": null,
     "audiobookAmazonLink": null,
     "audiobookAppleLink": null
-  }
+  },
+  "sampleChapterPath": "sample-chapter.md"
 }
