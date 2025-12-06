@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { Outfit, Marcellus } from "next/font/google";
 import "./globals.css";
@@ -29,6 +30,7 @@ export default function RootLayout({
         className={`${outfit.variable} ${marcellus.variable} antialiased font-sans bg-background text-foreground`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );

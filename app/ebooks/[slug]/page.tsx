@@ -11,6 +11,7 @@ import {
 } from "@/lib/ebook-utils";
 import { SampleChapter } from "@/components/ebook/SampleChapter";
 import { Button } from "@/components/ui/button";
+import { TrackedLink } from "@/components/ebook/TrackedLink";
 
 export default async function EbookDetailPage({
   params,
@@ -114,28 +115,40 @@ export default async function EbookDetailPage({
                     <div className="flex gap-3">
                       {ebook.links.ebookAmazonLink && (
                         <Button asChild variant="outline" className="h-12 px-6 border-primary/30 hover:bg-primary/10 hover:border-primary hover:text-primary transition-all uppercase tracking-wider text-xs">
-                          <a
+                          <TrackedLink
                             href={ebook.links.ebookAmazonLink}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="gap-2"
+                            eventName="click_buy_link"
+                            eventProperties={{ 
+                              provider: "Amazon", 
+                              book: ebook.title,
+                              location: "details_page" 
+                            }}
                           >
                             <BookOpen className="h-4 w-4" />
                             Amazon Kindle
-                          </a>
+                          </TrackedLink>
                         </Button>
                       )}
                       {ebook.links.ebookAppleLink && (
                         <Button asChild variant="outline" className="h-12 px-6 border-primary/30 hover:bg-primary/10 hover:border-primary hover:text-primary transition-all uppercase tracking-wider text-xs">
-                          <a
+                          <TrackedLink
                             href={ebook.links.ebookAppleLink}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="gap-2"
+                            eventName="click_buy_link"
+                            eventProperties={{ 
+                              provider: "Apple Books", 
+                              book: ebook.title, 
+                              location: "details_page" 
+                            }}
                           >
                             <BookOpen className="h-4 w-4" />
                             Apple Books
-                          </a>
+                          </TrackedLink>
                         </Button>
                       )}
                     </div>
@@ -146,28 +159,40 @@ export default async function EbookDetailPage({
                     <div className="flex gap-3">
                       {ebook.links.audiobookAmazonLink && (
                         <Button asChild variant="outline" className="h-12 px-6 border-primary/30 hover:bg-primary/10 hover:border-primary hover:text-primary transition-all uppercase tracking-wider text-xs">
-                          <a
+                          <TrackedLink
                             href={ebook.links.audiobookAmazonLink}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="gap-2"
+                            eventName="click_buy_link"
+                            eventProperties={{ 
+                              provider: "Audible", 
+                              book: ebook.title,
+                              location: "details_page" 
+                            }}
                           >
                             <Headphones className="h-4 w-4" />
                             Audible
-                          </a>
+                          </TrackedLink>
                         </Button>
                       )}
                       {ebook.links.audiobookAppleLink && (
                         <Button asChild variant="outline" className="h-12 px-6 border-primary/30 hover:bg-primary/10 hover:border-primary hover:text-primary transition-all uppercase tracking-wider text-xs">
-                          <a
+                          <TrackedLink
                             href={ebook.links.audiobookAppleLink}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="gap-2"
+                            eventName="click_buy_link"
+                            eventProperties={{ 
+                              provider: "Apple Audio", 
+                              book: ebook.title,
+                              location: "details_page" 
+                            }}
                           >
                             <Headphones className="h-4 w-4" />
                             Apple Audio
-                          </a>
+                          </TrackedLink>
                         </Button>
                       )}
                     </div>
@@ -177,14 +202,19 @@ export default async function EbookDetailPage({
                 {/* Goodreads */}
                 {ebook.links.goodReadsLink && (
                     <div className="mt-4">
-                      <a
+                      <TrackedLink
                         href={ebook.links.goodReadsLink}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1 text-xs uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+                        eventName="click_goodreads"
+                        eventProperties={{ 
+                          book: ebook.title,
+                          location: "details_page" 
+                        }}
                       >
                         View on Goodreads <ExternalLink className="h-3 w-3" />
-                      </a>
+                      </TrackedLink>
                     </div>
                 )}
 

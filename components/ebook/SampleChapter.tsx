@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { X, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { track } from "@vercel/analytics/react";
 
 interface SampleChapterProps {
   content: string;
@@ -14,6 +15,19 @@ interface SampleChapterProps {
 
 export function SampleChapter({ content, bookTitle, amazonLink }: SampleChapterProps) {
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpen = () => {
+    track("open_sample_chapter", { book: bookTitle });
+    setIsOpen(true);
+  };
+
+  const handleAmazonClick = () => {
+    track("click_buy_link", { 
+      provider: "Amazon", 
+      book: bookTitle,
+      location: "sample_modal" 
+    });
+  };
 
   // Lock body scroll when modal is open
   useEffect(() => {
@@ -33,7 +47,7 @@ export function SampleChapter({ content, bookTitle, amazonLink }: SampleChapterP
         <Button 
           variant="outline" 
           size="lg" 
-          onClick={() => setIsOpen(true)}
+          onClick={handleOpen}
           className="h-14 px-8 border-primary/40 text-primary hover:bg-transparent hover:text-primary transition-all uppercase tracking-widest text-sm font-medium"
         >
           <BookOpen className="mr-2 h-4 w-4" />
@@ -123,7 +137,12 @@ export function SampleChapter({ content, bookTitle, amazonLink }: SampleChapterP
                       variant="outline"
                       className="border-primary/30 text-primary hover:bg-transparent hover:text-primary transition-all duration-300 uppercase tracking-widest text-xs h-10 px-6 font-sans"
                     >
-                      <a href={amazonLink} target="_blank" rel="noopener noreferrer">
+                      <a 
+                        href={amazonLink} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        onClick={handleAmazonClick}
+                      >
                         View on Amazon
                       </a>
                     </Button>
