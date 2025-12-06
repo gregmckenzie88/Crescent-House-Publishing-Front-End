@@ -33,16 +33,6 @@ export default async function EbookDetailPage({
   const pageCount = calculatePageCount(ebook.wordCount);
   const readingTime = calculateReadingTime(ebook.wordCount);
 
-  // Format publication date
-  const publicationDate = new Date(ebook.publicationDate).toLocaleDateString(
-    "en-US",
-    {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    }
-  );
-
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Navigation */}
@@ -96,8 +86,6 @@ export default async function EbookDetailPage({
                 <span>{pageCount} pages</span>
                 <span className="text-primary">•</span>
                 <span>{readingTime}</span>
-                <span className="text-primary">•</span>
-                <span>{publicationDate}</span>
               </div>
 
               {/* Description */}

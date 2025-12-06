@@ -16,7 +16,7 @@ export function EbookCard({ ebook, imagePosition }: EbookCardProps) {
 
   return (
     <div
-      className={`flex flex-col gap-8 md:gap-12 p-8 rounded-xl border border-border/30 bg-card/40 hover:bg-card/60 hover:border-primary/30 hover:shadow-[0_0_30px_-10px_rgba(var(--primary),0.1)] transition-all duration-500 max-w-5xl mx-auto group ${
+      className={`flex flex-col gap-8 md:gap-12 p-8 rounded-xl border border-border/30 bg-card/40 transition-all duration-500 max-w-5xl mx-auto group ${
         imagePosition === "left" ? "md:flex-row" : "md:flex-row-reverse"
       }`}
     >
@@ -25,7 +25,7 @@ export function EbookCard({ ebook, imagePosition }: EbookCardProps) {
         href={detailsUrl}
         className="flex-shrink-0 mx-auto md:mx-0 relative"
       >
-        <div className="relative w-[280px] h-[280px] rounded-md overflow-hidden shadow-2xl transition-transform duration-500 group-hover:-translate-y-2 group-hover:shadow-primary/20">
+        <div className="relative w-[280px] h-[280px] rounded-md overflow-hidden shadow-2xl transition-transform duration-500">
           <Image
             src={imagePath}
             alt={`${ebook.title} cover`}
@@ -33,8 +33,6 @@ export function EbookCard({ ebook, imagePosition }: EbookCardProps) {
             className="object-cover"
             sizes="280px"
           />
-          {/* Shine effect */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
         </div>
       </Link>
 
