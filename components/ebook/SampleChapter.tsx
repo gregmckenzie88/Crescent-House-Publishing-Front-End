@@ -33,7 +33,7 @@ export function SampleChapter({ content, bookTitle }: SampleChapterProps) {
           variant="outline" 
           size="lg" 
           onClick={() => setIsOpen(true)}
-          className="h-14 px-8 border-primary/40 text-primary hover:bg-primary hover:text-primary-foreground transition-all uppercase tracking-widest text-sm font-medium"
+          className="h-14 px-8 border-primary/40 text-primary hover:bg-transparent hover:text-primary transition-all uppercase tracking-widest text-sm font-medium"
         >
           <BookOpen className="mr-2 h-4 w-4" />
           Read First Chapter
@@ -114,7 +114,7 @@ export function SampleChapter({ content, bookTitle }: SampleChapterProps) {
                   <Button 
                     variant="outline"
                     onClick={() => setIsOpen(false)}
-                    className="border-primary/30 hover:bg-primary hover:text-primary-foreground transition-colors text-xs uppercase tracking-widest h-10 px-6"
+                    className="border-primary/30 hover:bg-transparent hover:text-primary transition-colors text-xs uppercase tracking-widest h-10 px-6"
                   >
                     Continue to Purchase
                   </Button>

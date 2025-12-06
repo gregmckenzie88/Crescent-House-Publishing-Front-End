@@ -62,7 +62,7 @@ export function EbookCard({ ebook, imagePosition }: EbookCardProps) {
         </div>
         
         <div className="pt-2">
-          <Button asChild variant="outline" className="border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 uppercase tracking-widest text-xs h-10 px-6">
+          <Button asChild variant="outline" className="border-primary/30 text-primary hover:bg-transparent hover:text-primary transition-all duration-300 uppercase tracking-widest text-xs h-10 px-6">
             <Link href={detailsUrl}>View Details</Link>
           </Button>
         </div>
