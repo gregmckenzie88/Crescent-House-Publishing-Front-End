@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { EbookList } from "./ebook/EbookList";
 import type { EbookWithSlug } from "@/types/ebook";
 import { Search } from "lucide-react";
@@ -11,6 +11,7 @@ interface ClientHomeProps {
 
 export function ClientHome({ initialEbooks }: ClientHomeProps) {
   const [searchTerm, setSearchTerm] = useState("");
+  const listRef = useRef<HTMLDivElement>(null);
 
   const filteredEbooks = useMemo(() => {
     if (!searchTerm.trim()) {
@@ -24,6 +25,13 @@ export function ClientHome({ initialEbooks }: ClientHomeProps) {
       return searchContent.includes(lowerTerm);
     });
   }, [initialEbooks, searchTerm]);
+
+  // Scroll to results when search term changes
+  useEffect(() => {
+    if (searchTerm && listRef.current) {
+      listRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [searchTerm]);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -71,10 +79,12 @@ export function ClientHome({ initialEbooks }: ClientHomeProps) {
           <div className="w-24 h-1 bg-primary/40 mx-auto rounded-full" />
         </div>
         
-        <EbookList 
-          initialEbooks={filteredEbooks} 
-          emptyMessage="No titles found. Please try a new search term."
-        />
+        <div ref={listRef} className="scroll-mt-32">
+          <EbookList 
+            initialEbooks={filteredEbooks} 
+            emptyMessage="No titles found. Please try a new search term."
+          />
+        </div>
       </section>
 
       {/* Footer */}
