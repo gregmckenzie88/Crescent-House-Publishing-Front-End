@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ExternalLink, BookOpen, Headphones } from "lucide-react";
+import { ArrowLeft, ExternalLink, BookOpen, Headphones, Clock } from "lucide-react";
 import { getEbookBySlug, getSampleChapter } from "@/lib/ebooks";
 import { getEbookImagePath } from "@/lib/ebook-utils";
 import {
@@ -83,9 +83,15 @@ export default async function EbookDetailPage({
               <div className="flex flex-wrap gap-6 text-sm text-muted-foreground uppercase tracking-wider border-y border-border/30 py-4">
                 <span>{formatWordCount(ebook.wordCount)} words</span>
                 <span className="text-primary">•</span>
-                <span>{pageCount} pages</span>
+                <span className="flex items-center gap-2">
+                  <BookOpen className="h-4 w-4" />
+                  {pageCount} pages
+                </span>
                 <span className="text-primary">•</span>
-                <span>{readingTime}</span>
+                <span className="flex items-center gap-2">
+                  <Clock className="h-4 w-4" />
+                  {readingTime}
+                </span>
               </div>
 
               {/* Description */}
@@ -205,7 +211,11 @@ export default async function EbookDetailPage({
               <h2 className="text-4xl md:text-5xl font-display mt-3 mb-6">Sample Chapter</h2>
               <div className="w-24 h-1 bg-primary/40 mx-auto rounded-full" />
             </div>
-            <SampleChapter content={sampleChapter} bookTitle={ebook.title} />
+            <SampleChapter 
+              content={sampleChapter} 
+              bookTitle={ebook.title} 
+              amazonLink={ebook.links.ebookAmazonLink}
+            />
           </div>
         )}
       </div>

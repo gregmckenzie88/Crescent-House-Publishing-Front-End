@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { BookOpen, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import type { EbookWithSlug } from "@/types/ebook";
@@ -48,16 +49,22 @@ export function EbookCard({ ebook, imagePosition }: EbookCardProps) {
             by {ebook.author.name}
           </p>
           
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 text-sm text-muted-foreground/80 uppercase tracking-wider font-medium">
-            <span>{calculatePageCount(ebook.wordCount)} pages</span>
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 text-sm text-muted-foreground/80 uppercase tracking-wider font-medium">
+            <span className="flex items-center gap-2">
+              <BookOpen className="h-4 w-4" />
+              {calculatePageCount(ebook.wordCount)} pages
+            </span>
             <span className="w-1 h-1 rounded-full bg-primary/40" />
-            <span>{calculateReadingTime(ebook.wordCount)}</span>
+            <span className="flex items-center gap-2">
+              <Clock className="h-4 w-4" />
+              {calculateReadingTime(ebook.wordCount)}
+            </span>
           </div>
         </div>
         
         <div className="relative">
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed line-clamp-3 font-light">
-            {ebook.summary.under120}
+            {ebook.summary.logLine}
           </p>
         </div>
         

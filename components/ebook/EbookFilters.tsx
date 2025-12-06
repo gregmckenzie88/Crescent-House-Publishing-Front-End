@@ -16,7 +16,7 @@ interface EbookFiltersProps {
 
 export function EbookFilters({ currentSort, onSortChange }: EbookFiltersProps) {
   return (
-    <div className="flex justify-end mb-8">
+    <div className="max-w-5xl mx-auto flex justify-start mb-8">
       <div className="flex items-center gap-3 bg-card/30 backdrop-blur-sm py-2 px-4 rounded-full border border-border/30">
         <span className="text-xs uppercase tracking-widest text-muted-foreground font-medium">Sort Collection:</span>
         <Select value={currentSort} onValueChange={(value) => onSortChange(value as SortOption)}>

@@ -9,9 +9,10 @@ import { Button } from "@/components/ui/button";
 interface SampleChapterProps {
   content: string;
   bookTitle: string;
+  amazonLink?: string | null;
 }
 
-export function SampleChapter({ content, bookTitle }: SampleChapterProps) {
+export function SampleChapter({ content, bookTitle, amazonLink }: SampleChapterProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   // Lock body scroll when modal is open
@@ -111,13 +112,25 @@ export function SampleChapter({ content, bookTitle }: SampleChapterProps) {
                   <p className="text-base text-muted-foreground italic mb-6 font-serif">
                     Enjoyed the preview?
                   </p>
-                  <Button 
-                    variant="outline"
-                    onClick={() => setIsOpen(false)}
-                    className="border-primary/30 hover:bg-transparent hover:text-primary transition-colors text-xs uppercase tracking-widest h-10 px-6"
-                  >
-                    Continue to Purchase
-                  </Button>
+                  {amazonLink ? (
+                    <Button 
+                      asChild
+                      variant="outline"
+                      className="border-primary/30 text-primary hover:bg-transparent hover:text-primary transition-all duration-300 uppercase tracking-widest text-xs h-10 px-6 font-sans"
+                    >
+                      <a href={amazonLink} target="_blank" rel="noopener noreferrer">
+                        View on Amazon
+                      </a>
+                    </Button>
+                  ) : (
+                    <Button 
+                      variant="outline"
+                      onClick={() => setIsOpen(false)}
+                      className="border-primary/30 text-primary hover:bg-transparent hover:text-primary transition-all duration-300 uppercase tracking-widest text-xs h-10 px-6 font-sans"
+                    >
+                      Close Preview
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>
