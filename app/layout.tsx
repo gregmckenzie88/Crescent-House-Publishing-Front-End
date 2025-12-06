@@ -1,21 +1,16 @@
 import type { Metadata } from "next";
-import { Lato, Playfair_Display, Cinzel } from "next/font/google";
+import { Outfit, Marcellus } from "next/font/google";
 import "./globals.css";
 
-const lato = Lato({
-  weight: ["300", "400", "700"],
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-lato",
+  variable: "--font-outfit",
 });
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
+const marcellus = Marcellus({
+  weight: "400",
   subsets: ["latin"],
-});
-
-const cinzel = Cinzel({
-  variable: "--font-cinzel",
-  subsets: ["latin"],
+  variable: "--font-marcellus",
 });
 
 export const metadata: Metadata = {
@@ -31,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${lato.variable} ${playfair.variable} ${cinzel.variable} antialiased font-sans bg-background text-foreground`}
+        className={`${outfit.variable} ${marcellus.variable} antialiased font-sans bg-background text-foreground`}
       >
         {children}
       </body>
