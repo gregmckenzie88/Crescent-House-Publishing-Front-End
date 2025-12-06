@@ -17,7 +17,7 @@ export function getEbookImagePath(
   slug: string,
   type: "audiobook" | "ebook"
 ): string {
-  return `/ebooks/${slug}/compressed_${type}_cover.png`;
+  return `/ebooks/${slug}/compressed_${type}_cover.webp`;
 }
 
 /**

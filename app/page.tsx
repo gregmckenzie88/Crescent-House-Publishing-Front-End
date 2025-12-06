@@ -6,13 +6,25 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      {/* Header */}
+      <header className="border-b border-border/40 bg-background/80 backdrop-blur-md sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-center md:justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center border border-primary/30">
+              <span className="text-primary font-display font-bold text-lg">CH</span>
+            </div>
+            <h1 className="text-xl font-serif tracking-tight text-foreground">Crescent House Publishing</h1>
+          </div>
+        </div>
+      </header>
+
       {/* Hero Section */}
-      <section className="relative py-32 md:py-48 overflow-hidden">
+      <section className="relative py-24 md:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/20 via-background to-background opacity-50" />
         <div className="container relative mx-auto px-4 text-center">
           <div className="max-w-4xl mx-auto space-y-6">
-            <div className="flex flex-col items-center justify-center mb-8 gap-4">
-               <span className="text-primary font-display font-bold text-sm md:text-base uppercase tracking-[0.25em]">Crescent House Publishing</span>
+            <div className="flex justify-center mb-4">
+               <div className="w-1 h-16 bg-gradient-to-b from-transparent via-primary to-transparent opacity-80" />
             </div>
             <h2 className="text-5xl md:text-7xl font-display font-medium leading-tight bg-gradient-to-b from-foreground to-muted-foreground bg-clip-text text-transparent">
               Love, Lust, and <br />
