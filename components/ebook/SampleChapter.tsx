@@ -88,6 +88,11 @@ export function SampleChapter({ content, bookTitle, amazonLink }: SampleChapterP
                         {children}
                       </h2>
                     ),
+                    h4: ({ children, ...props }) => (
+                      <div className="my-10 text-center text-primary/40 text-xl font-medium tracking-widest">
+                        {children}
+                      </div>
+                    ),
                     p: ({ children, ...props }) => (
                       <p className="mb-6 text-[1.05rem] md:text-[1.125rem] leading-[1.8]" {...props}>
                         {children}

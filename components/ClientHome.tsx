@@ -59,7 +59,7 @@ export function ClientHome({ initialEbooks }: ClientHomeProps) {
         <div className="container relative mx-auto px-4 text-center">
           <div className="max-w-4xl mx-auto space-y-6">
             <div className="flex justify-center mb-4">
-               <div className="w-1 h-16 bg-gradient-to-b from-transparent via-primary to-transparent opacity-80" />
+               <span className="text-5xl md:text-7xl leading-none">🔥</span>
             </div>
             <h2 className="text-5xl md:text-7xl font-display font-medium leading-tight bg-gradient-to-b from-foreground to-muted-foreground bg-clip-text text-transparent">
               Love, Lust, and <br />
