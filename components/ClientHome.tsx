@@ -36,7 +36,7 @@ export function ClientHome({ initialEbooks }: ClientHomeProps) {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Header with Search */}
-      <header className="border-b border-border/40 bg-background/80 backdrop-blur-md sticky top-0 z-50">
+      <header className="fixed top-0 left-0 right-0 border-b border-border/40 bg-background/80 backdrop-blur-md z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="max-w-2xl mx-auto relative">
             <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none text-muted-foreground">
@@ -54,7 +54,7 @@ export function ClientHome({ initialEbooks }: ClientHomeProps) {
       </header>
 
       {/* Hero Section */}
-      <section className="relative py-24 md:py-32 overflow-hidden">
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/20 via-background to-background opacity-50" />
         <div className="container relative mx-auto px-4 text-center">
           <div className="max-w-4xl mx-auto space-y-6">
@@ -74,10 +74,6 @@ export function ClientHome({ initialEbooks }: ClientHomeProps) {
 
       {/* E-books Listing */}
       <section className="container mx-auto px-4 py-16 md:py-24 border-t border-border/30">
-        <div className="mb-16 text-center">
-          <h3 className="text-3xl md:text-4xl font-serif mb-4 text-foreground">The Collection</h3>
-          <div className="w-24 h-1 bg-primary/40 mx-auto rounded-full" />
-        </div>
         
         <div ref={listRef} className="scroll-mt-32">
           <EbookList 
