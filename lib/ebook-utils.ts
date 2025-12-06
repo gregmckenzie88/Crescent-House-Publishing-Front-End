@@ -1,4 +1,19 @@
-import type { EbookWithSlug } from "@/types/ebook";
+import type { EbookMetadata, EbookWithSlug } from "@/types/ebook";
+
+/**
+ * Check if an ebook has at least one purchase link available
+ */
+export function hasAvailableLinks(ebook: EbookMetadata): boolean {
+  const { links } = ebook;
+  if (!links) return false;
+
+  return Boolean(
+    links.ebookAmazonLink ||
+    links.ebookAppleLink ||
+    links.audiobookAmazonLink ||
+    links.audiobookAppleLink
+  );
+}
 
 /**
  * Convert a title to a kebab-case slug

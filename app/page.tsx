@@ -1,8 +1,10 @@
 import { EbookList } from "@/components/ebook/EbookList";
 import { getAllEbooks } from "@/lib/ebooks";
+import { hasAvailableLinks } from "@/lib/ebook-utils";
 
 export default async function Home() {
   const ebooks = await getAllEbooks();
+  const availableEbooks = ebooks.filter(hasAvailableLinks);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -44,7 +46,7 @@ export default async function Home() {
           <div className="w-24 h-1 bg-primary/40 mx-auto rounded-full" />
         </div>
         
-        <EbookList initialEbooks={ebooks} />
+        <EbookList initialEbooks={availableEbooks} />
       </section>
 
       {/* Footer */}
