@@ -32,6 +32,9 @@ export async function generateMetadata(
   return {
     title: `${ebook.title} by ${ebook.author.name}`,
     description: ebook.summary.logLine || ebook.summary.under240,
+    alternates: {
+      canonical: `/ebooks/${slug}`,
+    },
     openGraph: {
       title: ebook.title,
       description: ebook.summary.logLine || ebook.summary.under240,

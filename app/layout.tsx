@@ -16,6 +16,9 @@ const marcellus = Marcellus({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://crescenthousepublishing.com"),
+  alternates: {
+    canonical: "/",
+  },
   title: {
     default: "Crescent House Publishing | Curated Erotica & Romance",
     template: "%s | Crescent House Publishing",
