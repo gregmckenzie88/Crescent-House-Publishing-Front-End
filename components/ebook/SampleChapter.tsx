@@ -104,7 +104,7 @@ export function SampleChapter({ content, bookTitle, amazonLink }: SampleChapterP
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-border/20 bg-card/50 backdrop-blur-sm sticky top-0 z-10">
               <div className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
-                Reading Sample
+                {bookTitle}
               </div>
               <Button 
                 variant="ghost" 
@@ -125,80 +125,173 @@ export function SampleChapter({ content, bookTitle, amazonLink }: SampleChapterP
                 scrollPosRef.current = e.currentTarget.scrollTop;
               }}
             >
-              <div className="prose prose-invert prose-lg max-w-none font-serif leading-loose text-foreground/90 prose-headings:font-display prose-headings:font-medium prose-p:text-lg prose-p:leading-8 prose-blockquote:border-primary/50 prose-blockquote:text-primary/80 prose-blockquote:italic">
+              <div className="ebook-sample-content max-w-none text-foreground/90">
+                <style dangerouslySetInnerHTML={{ __html: `
+                  /* Ebook Sample Styles */
+                  .ebook-sample-content {
+                    font-family: serif; /* Use standard serif for ebook feel */
+                    text-align: justify;
+                    line-height: 1.5;
+                    hyphens: none;
+                    -webkit-hyphens: none;
+                    -moz-hyphens: none;
+                    overflow-wrap: anywhere;
+                    word-break: break-word;
+                    font-size: 1.125rem; /* 18px base size for readability */
+                  }
+
+                  .ebook-sample-content h1,
+                  .ebook-sample-content h2,
+                  .ebook-sample-content h3,
+                  .ebook-sample-content h4,
+                  .ebook-sample-content h5,
+                  .ebook-sample-content h6 {
+                    text-indent: 0;
+                    text-align: center;
+                    margin-top: 1.6em;
+                    margin-bottom: 0.8em;
+                    font-weight: bold;
+                    page-break-after: avoid;
+                    page-break-inside: avoid;
+                    -webkit-hyphens: none;
+                    hyphens: none;
+                    line-height: 135%;
+                  }
+
+                  .ebook-sample-content h1 {
+                    font-size: 2.0em;
+                    line-height: 150%;
+                  }
+
+                  .ebook-sample-content h2 {
+                    font-size: 1.5em;
+                  }
+
+                  .ebook-sample-content h3 {
+                    font-size: 1.4em;
+                    text-align: left; /* Override center for h3 per original CSS if needed, but 'overrides' said center all. adhering to overrides. */
+                    text-align: center; 
+                  }
+                  
+                  /* Original CSS says h3-h6 align left, but overrides say all headings align center. 
+                     User said "conform to the style sheet that I have pasted below". 
+                     The bottom of the pasted sheet has overrides which select h1..h6 and align center. 
+                     I will follow the overrides. */
+
+                  .ebook-sample-content p {
+                    text-indent: 1.25em;
+                    margin: 0;
+                    widows: 2;
+                    orphans: 2;
+                    text-align: justify;
+                  }
+
+                  .ebook-sample-content p.centered {
+                    text-indent: 0;
+                    margin: 1.0em 0 0 0;
+                    text-align: center;
+                  }
+
+                  .ebook-sample-content ul,
+                  .ebook-sample-content ol {
+                    margin: 1em 0 0 2em;
+                    text-align: left;
+                  }
+                  
+                  /* Override for lists from bottom of sheet */
+                  .ebook-sample-content ul,
+                  .ebook-sample-content ol {
+                    list-style: none;
+                    padding-left: 0;
+                    margin-left: 0;
+                    text-align: center;
+                  }
+                  
+                  .ebook-sample-content li {
+                    text-align: center;
+                  }
+                  
+                  .ebook-sample-content ul li::before,
+                  .ebook-sample-content ol li::before {
+                    content: none;
+                  }
+
+                  .ebook-sample-content img {
+                    max-width: 100%;
+                  }
+                  
+                  .ebook-sample-content hr {
+                    border: none;
+                    height: 0;
+                    margin: 2em 0;
+                    visibility: hidden;
+                  }
+
+                  .ebook-sample-content .italic { font-style: italic; }
+                  .ebook-sample-content .bold { font-weight: bold; }
+                  
+                  /* Helper for ReactMarkdown strong/em */
+                  .ebook-sample-content strong { font-weight: bold; }
+                  .ebook-sample-content em { font-style: italic; }
+                  
+                  /* Blockquotes */
+                  .ebook-sample-content blockquote {
+                    margin: 1em 1.5em 0 1.5em;
+                    text-align: left;
+                    font-size: 0.9em;
+                  }
+                `}} />
                 <ReactMarkdown
                   remarkPlugins={[remarkGfm]}
                   components={{
-                    h1: ({ children, ...props }) => (
-                      <div className="text-center mb-12 mt-4">
-                        <span className="block text-xs uppercase tracking-[0.3em] text-primary mb-3 font-sans font-medium">
-                          {bookTitle}
-                        </span>
-                        <h1 className="text-3xl md:text-4xl mb-4" {...props}>
-                          {children}
-                        </h1>
-                        <div className="w-12 h-0.5 bg-primary/30 mx-auto rounded-full" />
-                      </div>
-                    ),
-                    h2: ({ children, ...props }) => (
-                      <h2 className="text-2xl mt-12 mb-6 text-center italic" {...props}>
-                        {children}
-                      </h2>
-                    ),
-                    h4: ({ children, ...props }) => (
-                      <div className="my-10 text-center text-primary/40 text-xl font-medium tracking-widest">
-                        {children}
-                      </div>
-                    ),
-                    p: ({ children, ...props }) => (
-                      <p className="mb-6 text-[1.05rem] md:text-[1.125rem] leading-[1.8]" {...props}>
-                        {children}
-                      </p>
-                    ),
-                    strong: ({ children, ...props }) => (
-                      <strong className="font-bold text-primary" {...props}>
-                        {children}
-                      </strong>
-                    ),
-                    hr: ({ ...props }) => (
-                      <div className="my-10 text-center text-primary/40 text-xl">
-                        ***
-                      </div>
-                    )
+                    // Pass through components to strip previous custom styling but keep structure if needed
+                    // We rely on CSS for styling now.
+                    h1: ({ node, ...props }) => <h1 {...props} />,
+                    h2: ({ node, ...props }) => <h2 {...props} />,
+                    h3: ({ node, ...props }) => <h3 {...props} />,
+                    h4: ({ node, ...props }) => <h4 {...props} />,
+                    h5: ({ node, ...props }) => <h5 {...props} />,
+                    h6: ({ node, ...props }) => <h6 {...props} />,
+                    p: ({ node, ...props }) => <p {...props} />,
+                    ul: ({ node, ...props }) => <ul {...props} />,
+                    ol: ({ node, ...props }) => <ol {...props} />,
+                    li: ({ node, ...props }) => <li {...props} />,
+                    blockquote: ({ node, ...props }) => <blockquote {...props} />,
+                    hr: ({ node, ...props }) => <hr {...props} />,
                   }}
                 >
                   {content}
                 </ReactMarkdown>
-                
-                <div className="text-center mt-16 pt-8 border-t border-border/20">
-                  <p className="text-base text-muted-foreground italic mb-6 font-serif">
-                    Enjoyed the preview?
-                  </p>
-                  {amazonLink ? (
-                    <Button 
-                      asChild
-                      variant="outline"
-                      className="border-primary/30 text-primary hover:bg-transparent hover:text-primary transition-all duration-300 uppercase tracking-widest text-xs h-10 px-6 font-sans"
+              </div>
+
+              <div className="text-center mt-16 pt-8 border-t border-border/20">
+                <p className="text-base text-muted-foreground italic mb-6 font-serif">
+                  Enjoyed the preview?
+                </p>
+                {amazonLink ? (
+                  <Button 
+                    asChild
+                    variant="outline"
+                    className="border-primary/30 text-primary hover:bg-transparent hover:text-primary transition-all duration-300 uppercase tracking-widest text-xs h-10 px-6 font-sans"
+                  >
+                    <a 
+                      href={amazonLink} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      onClick={handleAmazonClick}
                     >
-                      <a 
-                        href={amazonLink} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        onClick={handleAmazonClick}
-                      >
-                        View on Amazon
-                      </a>
-                    </Button>
-                  ) : (
-                    <Button 
-                      variant="outline"
-                      onClick={() => setIsOpen(false)}
-                      className="border-primary/30 text-primary hover:bg-transparent hover:text-primary transition-all duration-300 uppercase tracking-widest text-xs h-10 px-6 font-sans"
-                    >
-                      Close Preview
-                    </Button>
-                  )}
-                </div>
+                      View on Amazon
+                    </a>
+                  </Button>
+                ) : (
+                  <Button 
+                    variant="outline"
+                    onClick={() => setIsOpen(false)}
+                    className="border-primary/30 text-primary hover:bg-transparent hover:text-primary transition-all duration-300 uppercase tracking-widest text-xs h-10 px-6 font-sans"
+                  >
+                    Close Preview
+                  </Button>
+                )}
               </div>
             </div>
           </div>
