@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { X, BookOpen } from "lucide-react";
@@ -15,6 +15,26 @@ interface SampleChapterProps {
 
 export function SampleChapter({ content, bookTitle, amazonLink }: SampleChapterProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [showStickyFooter, setShowStickyFooter] = useState(true);
+  const scrollPosRef = useRef(0);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  // Restore scroll position when modal opens
+  useEffect(() => {
+    if (isOpen && contentRef.current) {
+      // Use requestAnimationFrame to ensure layout is computed
+      requestAnimationFrame(() => {
+        if (contentRef.current) {
+          contentRef.current.scrollTop = scrollPosRef.current;
+        }
+      });
+    }
+  }, [isOpen]);
+
+  // Reset scroll position when book changes
+  useEffect(() => {
+    scrollPosRef.current = 0;
+  }, [bookTitle]);
 
   const handleOpen = () => {
     track("open_sample_chapter", { book: bookTitle });
@@ -28,6 +48,23 @@ export function SampleChapter({ content, bookTitle, amazonLink }: SampleChapterP
       location: "sample_modal" 
     });
   };
+
+  // Handle scroll for sticky footer visibility
+  useEffect(() => {
+    const handleScroll = () => {
+      // Check if we're near the bottom of the page
+      const scrolledToBottom = 
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100;
+
+      setShowStickyFooter(!scrolledToBottom);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    // Initial check
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Lock body scroll when modal is open
   useEffect(() => {
@@ -81,7 +118,13 @@ export function SampleChapter({ content, bookTitle, amazonLink }: SampleChapterP
             </div>
 
             {/* Content - Scrollable Area */}
-            <div className="flex-1 overflow-y-auto p-6 md:p-12 custom-scrollbar">
+            <div 
+              ref={contentRef}
+              className="flex-1 overflow-y-auto p-6 md:p-12 custom-scrollbar"
+              onScroll={(e) => {
+                scrollPosRef.current = e.currentTarget.scrollTop;
+              }}
+            >
               <div className="prose prose-invert prose-lg max-w-none font-serif leading-loose text-foreground/90 prose-headings:font-display prose-headings:font-medium prose-p:text-lg prose-p:leading-8 prose-blockquote:border-primary/50 prose-blockquote:text-primary/80 prose-blockquote:italic">
                 <ReactMarkdown
                   remarkPlugins={[remarkGfm]}
@@ -161,6 +204,25 @@ export function SampleChapter({ content, bookTitle, amazonLink }: SampleChapterP
           </div>
         </div>
       )}
+
+      {/* Sticky Footer */}
+      <div 
+        className={`fixed bottom-0 left-0 right-0 z-40 bg-background/95 backdrop-blur-md border-t border-border/20 p-4 transition-transform duration-500 ease-in-out ${
+          showStickyFooter ? "translate-y-0" : "translate-y-full"
+        }`}
+      >
+        <div className="container mx-auto flex justify-center">
+          <Button 
+            variant="outline" 
+            size="lg" 
+            onClick={handleOpen}
+            className="w-full md:w-auto min-w-[200px] h-12 border-primary/40 text-primary hover:bg-transparent hover:text-primary shadow-lg transition-all uppercase tracking-widest text-xs font-bold"
+          >
+            <BookOpen className="mr-2 h-4 w-4" />
+            Read First Chapter
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }

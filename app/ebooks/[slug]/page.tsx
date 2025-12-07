@@ -136,7 +136,7 @@ export default async function EbookDetailPage({
 
           {/* Right column - Book details */}
           <div className="flex flex-col justify-center">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-medium mb-4 leading-tight bg-gradient-to-b from-foreground to-muted-foreground bg-clip-text text-transparent">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-medium mb-4 leading-tight bg-gradient-to-b from-foreground to-muted-foreground bg-clip-text text-transparent text-center md:text-left">
               {ebook.title}
             </h1>
 
