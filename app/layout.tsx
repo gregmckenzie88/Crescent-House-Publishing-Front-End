@@ -15,8 +15,45 @@ const marcellus = Marcellus({
 });
 
 export const metadata: Metadata = {
-  title: "Crescent House Publishing",
-  description: "Curated Erotica & Romance",
+  metadataBase: new URL("https://crescenthousepublishing.com"),
+  title: {
+    default: "Crescent House Publishing | Curated Erotica & Romance",
+    template: "%s | Crescent House Publishing",
+  },
+  description: "Discover curated erotica and romance novels at Crescent House Publishing. Featuring spicy romance books, adult romance novels, and steamy ebooks for every reader.",
+  keywords: [
+    "romance ebooks",
+    "erotic romance books",
+    "adult romance novels",
+    "spicy romance books",
+    "steamy romance ebooks",
+    "romance books online",
+    "erotic fiction",
+  ],
+  openGraph: {
+    title: "Crescent House Publishing",
+    description: "Curated Erotica & Romance",
+    url: "https://crescenthousepublishing.com",
+    siteName: "Crescent House Publishing",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Crescent House Publishing",
+    description: "Curated Erotica & Romance",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({

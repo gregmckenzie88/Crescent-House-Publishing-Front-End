@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ExternalLink, BookOpen, Headphones, Clock } from "lucide-react";
@@ -12,6 +13,48 @@ import {
 import { SampleChapter } from "@/components/ebook/SampleChapter";
 import { Button } from "@/components/ui/button";
 import { TrackedLink } from "@/components/ebook/TrackedLink";
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ slug: string }> }
+): Promise<Metadata> {
+  const { slug } = await params;
+  const ebook = await getEbookBySlug(slug);
+
+  if (!ebook) {
+    return {
+      title: "Book Not Found",
+    };
+  }
+
+  const ebookCoverPath = getEbookImagePath(slug, "ebook");
+  const absoluteCoverPath = `https://crescenthousepublishing.com${ebookCoverPath}`;
+
+  return {
+    title: `${ebook.title} by ${ebook.author.name}`,
+    description: ebook.summary.logLine || ebook.summary.under240,
+    openGraph: {
+      title: ebook.title,
+      description: ebook.summary.logLine || ebook.summary.under240,
+      url: `https://crescenthousepublishing.com/ebooks/${slug}`,
+      images: [
+        {
+          url: absoluteCoverPath,
+          width: 800,
+          height: 1200,
+          alt: `Cover of ${ebook.title}`,
+        },
+      ],
+      type: "book",
+      authors: [ebook.author.name],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: ebook.title,
+      description: ebook.summary.logLine || ebook.summary.under240,
+      images: [absoluteCoverPath],
+    },
+  };
+}
 
 export default async function EbookDetailPage({
   params,
@@ -31,11 +74,38 @@ export default async function EbookDetailPage({
   const sampleChapter = await getSampleChapter(slug);
 
   const ebookCoverPath = getEbookImagePath(slug, "ebook");
+  const absoluteCoverPath = `https://crescenthousepublishing.com${ebookCoverPath}`;
   const pageCount = calculatePageCount(ebook.wordCount);
   const readingTime = calculateReadingTime(ebook.wordCount);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Book",
+    "name": ebook.title,
+    "author": {
+      "@type": "Person",
+      "name": ebook.author.name,
+      "description": ebook.author.biography
+    },
+    "description": ebook.summary.under240,
+    "numberOfPages": pageCount,
+    "wordCount": ebook.wordCount,
+    "inLanguage": "en",
+    "url": `https://crescenthousepublishing.com/ebooks/${slug}`,
+    "image": absoluteCoverPath,
+    "genre": ["Romance", "Erotica", "Adult Fiction"],
+    "offers": {
+      "@type": "Offer",
+      "availability": "https://schema.org/InStock"
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Navigation */}
       <div className="container mx-auto px-4 py-8">
         <Link
