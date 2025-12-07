@@ -300,7 +300,7 @@ export function SampleChapter({ content, bookTitle, amazonLink }: SampleChapterP
 
       {/* Sticky Footer */}
       <div 
-        className={`fixed bottom-0 left-0 right-0 z-40 bg-background/95 backdrop-blur-md border-t border-border/20 p-4 transition-transform duration-500 ease-in-out ${
+        className={`fixed bottom-0 left-0 right-0 z-40 bg-background/95 backdrop-blur-md border-t border-border/20 p-4 transition-transform duration-500 ease-in-out lg:hidden ${
           showStickyFooter ? "translate-y-0" : "translate-y-full"
         }`}
       >

@@ -152,8 +152,6 @@ export default async function EbookDetailPage({
 
               {/* Metadata */}
               <div className="flex flex-wrap gap-6 text-sm text-muted-foreground uppercase tracking-wider border-y border-border/30 py-4">
-                <span>{formatWordCount(ebook.wordCount)} words</span>
-                <span className="text-primary">•</span>
                 <span className="flex items-center gap-2">
                   <BookOpen className="h-4 w-4" />
                   {pageCount} pages
