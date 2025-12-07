@@ -137,7 +137,7 @@ export function SampleChapter({ content, bookTitle, amazonLink }: SampleChapterP
                     -moz-hyphens: none;
                     overflow-wrap: anywhere;
                     word-break: break-word;
-                    font-size: 1.125rem; /* 18px base size for readability */
+                    font-size: 1.25rem; /* 18px base size for readability */
                   }
 
                   .ebook-sample-content h1,
