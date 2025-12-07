@@ -20,9 +20,10 @@ export function ClientHome({ initialEbooks }: ClientHomeProps) {
     
     const lowerTerm = searchTerm.toLowerCase();
     return initialEbooks.filter((ebook) => {
-      // Search in summary.under240 as requested
+      // Search in summary.under240 as requested, and also in the title
       const searchContent = ebook.summary.under240.toLowerCase();
-      return searchContent.includes(lowerTerm);
+      const titleContent = ebook.title.toLowerCase();
+      return searchContent.includes(lowerTerm) || titleContent.includes(lowerTerm);
     });
   }, [initialEbooks, searchTerm]);
 
