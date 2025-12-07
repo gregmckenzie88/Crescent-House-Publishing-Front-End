@@ -23,7 +23,15 @@ export function ClientHome({ initialEbooks }: ClientHomeProps) {
       // Search in summary.under240 as requested, and also in the title
       const searchContent = ebook.summary.under240.toLowerCase();
       const titleContent = ebook.title.toLowerCase();
-      return searchContent.includes(lowerTerm) || titleContent.includes(lowerTerm);
+      const keywordsContent = (ebook.keywords || []).join(" ").toLowerCase();
+      const categoriesContent = (ebook.categories || []).join(" ").toLowerCase();
+
+      return (
+        searchContent.includes(lowerTerm) || 
+        titleContent.includes(lowerTerm) ||
+        keywordsContent.includes(lowerTerm) ||
+        categoriesContent.includes(lowerTerm)
+      );
     });
   }, [initialEbooks, searchTerm]);
 
@@ -45,7 +53,7 @@ export function ClientHome({ initialEbooks }: ClientHomeProps) {
             </div>
             <input
               type="text"
-              placeholder="Search titles..."
+              placeholder="Search titles, keywords, or categories..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-10 pr-4 py-2 rounded-full bg-muted/50 border border-border focus:outline-none focus:ring-2 focus:ring-primary/50 focus:bg-background transition-all"

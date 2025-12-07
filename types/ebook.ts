@@ -19,6 +19,8 @@ export interface EbookMetadata {
     audiobookAmazonLink: string | null;
     audiobookAppleLink: string | null;
   };
+  keywords?: string[];
+  categories?: string[];
   sampleChapterPath?: string;
 }
 
