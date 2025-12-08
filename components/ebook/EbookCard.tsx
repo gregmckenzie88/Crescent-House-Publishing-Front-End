@@ -3,6 +3,7 @@ import Link from "next/link";
 import { BookOpen, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { SampleChapter } from "@/components/ebook/SampleChapter";
 import type { EbookWithSlug } from "@/types/ebook";
 import { getEbookImagePath, calculatePageCount, calculateReadingTime } from "@/lib/ebook-utils";
 
@@ -68,10 +69,18 @@ export function EbookCard({ ebook, imagePosition }: EbookCardProps) {
           </p>
         </div>
         
-        <div className="pt-2">
+        <div className="pt-2 flex flex-col sm:flex-row gap-4">
           <Button asChild variant="outline" className="border-primary/30 text-primary hover:bg-transparent hover:text-primary transition-all duration-300 uppercase tracking-widest text-xs h-10 px-6">
             <Link href={detailsUrl}>View Details</Link>
           </Button>
+          <SampleChapter 
+            bookTitle={ebook.title}
+            slug={ebook.slug}
+            amazonLink={ebook.links.ebookAmazonLink}
+            triggerClassName="border-primary/30 text-primary hover:bg-transparent hover:text-primary transition-all duration-300 uppercase tracking-widest text-xs h-10 px-6"
+            enableStickyFooter={false}
+            label="Read the first chapter"
+          />
         </div>
       </div>
     </div>
