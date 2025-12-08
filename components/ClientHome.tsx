@@ -2,8 +2,9 @@
 
 import { useState, useMemo, useRef, useEffect } from "react";
 import { EbookList } from "./ebook/EbookList";
+import { Card, CardContent } from "@/components/ui/card";
 import type { EbookWithSlug } from "@/types/ebook";
-import { Search } from "lucide-react";
+import { Search, BookOpen, Gift } from "lucide-react";
 
 interface ClientHomeProps {
   initialEbooks: EbookWithSlug[];
@@ -77,6 +78,61 @@ export function ClientHome({ initialEbooks }: ClientHomeProps) {
             <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto font-light leading-relaxed font-serif italic">
               Stories that ignite the imagination and stir the soul.
             </p>
+
+            {/* Informational Cards (Desktop Only) */}
+            <div className="hidden md:grid md:grid-cols-2 gap-4 pt-8 max-w-3xl mx-auto">
+              <Card className="bg-background/40 backdrop-blur-md border-primary/10 hover:bg-background/60 transition-colors">
+                <CardContent className="flex flex-col items-center text-center p-6 gap-3">
+                  <div className="p-3 rounded-full bg-primary/10 text-primary mb-1">
+                    <BookOpen className="w-6 h-6" />
+                  </div>
+                  <p className="font-medium text-foreground">
+                    Your next obsession starts free — every first chapter, anytime.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-background/40 backdrop-blur-md border-primary/10 hover:bg-background/60 transition-colors">
+                <CardContent className="flex flex-col items-center text-center p-6 gap-3">
+                  <div className="p-3 rounded-full bg-primary/10 text-primary mb-1">
+                    <Gift className="w-6 h-6" />
+                  </div>
+                  <p className="font-medium text-foreground">
+                    New books drop? Grab them free on Amazon launch weekend.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Mobile Only Informational Section (100vh) */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden md:hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/20 via-background to-background opacity-50" />
+        <div className="container relative mx-auto px-4">
+          <div className="grid grid-cols-1 gap-6 max-w-sm mx-auto">
+             <Card className="bg-background/40 backdrop-blur-md border-primary/10 hover:bg-background/60 transition-colors">
+                <CardContent className="flex flex-col items-center text-center p-8 gap-4">
+                  <div className="p-4 rounded-full bg-primary/10 text-primary mb-2">
+                    <BookOpen className="w-8 h-8" />
+                  </div>
+                  <p className="text-lg font-medium text-foreground leading-relaxed">
+                    Your next obsession starts free — every first chapter, anytime.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-background/40 backdrop-blur-md border-primary/10 hover:bg-background/60 transition-colors">
+                <CardContent className="flex flex-col items-center text-center p-8 gap-4">
+                  <div className="p-4 rounded-full bg-primary/10 text-primary mb-2">
+                    <Gift className="w-8 h-8" />
+                  </div>
+                  <p className="text-lg font-medium text-foreground leading-relaxed">
+                    New books drop? Grab them free on Amazon launch weekend.
+                  </p>
+                </CardContent>
+              </Card>
           </div>
         </div>
       </section>
