@@ -148,9 +148,6 @@ export default async function EbookDetailPage({
                 <p className="text-2xl text-primary font-serif italic">
                   by {ebook.author.name}
                 </p>
-                <p className="text-sm text-muted-foreground mt-2 max-w-md font-light">
-                  {ebook.author.biography}
-                </p>
               </div>
 
               {/* Metadata */}
