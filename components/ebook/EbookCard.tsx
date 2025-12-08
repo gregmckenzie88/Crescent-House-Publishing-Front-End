@@ -69,18 +69,25 @@ export function EbookCard({ ebook, imagePosition }: EbookCardProps) {
           </p>
         </div>
         
-        <div className="pt-2 flex flex-col sm:flex-row gap-4">
-          <Button asChild variant="outline" className="border-primary/30 text-primary hover:bg-transparent hover:text-primary transition-all duration-300 uppercase tracking-widest text-xs h-10 px-6">
+        <div className="pt-2 flex flex-col sm:flex-row flex-wrap gap-4">
+          <Button asChild variant="outline" className="w-full sm:w-auto border-primary/30 text-primary hover:bg-transparent hover:text-primary transition-all duration-300 uppercase tracking-widest text-xs h-10 px-6">
             <Link href={detailsUrl}>View Details</Link>
           </Button>
           <SampleChapter 
             bookTitle={ebook.title}
             slug={ebook.slug}
             amazonLink={ebook.links.ebookAmazonLink}
-            triggerClassName="border-primary/30 text-primary hover:bg-transparent hover:text-primary transition-all duration-300 uppercase tracking-widest text-xs h-10 px-6"
+            triggerClassName="w-full sm:w-auto border-primary/30 text-primary hover:bg-transparent hover:text-primary transition-all duration-300 uppercase tracking-widest text-xs h-10 px-6"
             enableStickyFooter={false}
             label="Read the first chapter"
           />
+          {ebook.links.ebookAmazonLink && (
+            <Button asChild variant="outline" className="w-full sm:w-auto border-primary/30 text-primary hover:bg-transparent hover:text-primary transition-all duration-300 uppercase tracking-widest text-xs h-10 px-6">
+              <a href={ebook.links.ebookAmazonLink} target="_blank" rel="noopener noreferrer">
+                View it on Amazon
+              </a>
+            </Button>
+          )}
         </div>
       </div>
     </div>

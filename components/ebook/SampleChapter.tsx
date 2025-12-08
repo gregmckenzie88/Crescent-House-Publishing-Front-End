@@ -114,7 +114,7 @@ export function SampleChapter({
 
   return (
     <>
-      <div className={triggerClassName ? "" : "max-w-4xl mx-auto flex justify-center"}>
+      <div className={triggerClassName ? "w-full sm:w-auto" : "max-w-4xl mx-auto flex justify-center"}>
         <Button 
           variant="outline" 
           size={triggerClassName ? "default" : "lg"}
