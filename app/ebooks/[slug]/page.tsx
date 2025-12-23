@@ -315,6 +315,7 @@ export default async function EbookDetailPage({
             <SampleChapter 
               content={sampleChapter} 
               bookTitle={ebook.title} 
+              slug={slug}
               amazonLink={ebook.links?.ebookAmazonLink}
             />
           </div>
