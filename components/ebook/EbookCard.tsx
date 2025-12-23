@@ -76,18 +76,22 @@ export function EbookCard({ ebook, imagePosition }: EbookCardProps) {
           <SampleChapter 
             bookTitle={ebook.title}
             slug={ebook.slug}
-            amazonLink={ebook.links.ebookAmazonLink}
+            amazonLink={ebook.links?.ebookAmazonLink}
             triggerClassName="w-full sm:w-auto border-primary/30 text-primary hover:bg-transparent hover:text-primary transition-all duration-300 uppercase tracking-widest text-xs h-10 px-6"
             enableStickyFooter={false}
             label="Read the first chapter"
           />
-          {ebook.links.ebookAmazonLink && (
-            <Button asChild variant="outline" className="w-full sm:w-auto border-primary/30 text-primary hover:bg-transparent hover:text-primary transition-all duration-300 uppercase tracking-widest text-xs h-10 px-6">
+          <Button asChild variant="outline" className="w-full sm:w-auto border-primary/30 text-primary hover:bg-transparent hover:text-primary transition-all duration-300 uppercase tracking-widest text-xs h-10 px-6">
+            {ebook.links?.ebookAmazonLink ? (
               <a href={ebook.links.ebookAmazonLink} target="_blank" rel="noopener noreferrer">
                 View it on Amazon
               </a>
-            </Button>
-          )}
+            ) : (
+              <Link href={`/ebooks/${ebook.slug}/coming-soon`}>
+                View it on Amazon
+              </Link>
+            )}
+          </Button>
         </div>
       </div>
     </div>

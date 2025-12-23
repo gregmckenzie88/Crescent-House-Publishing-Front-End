@@ -1,10 +1,8 @@
 import { ClientHome } from "@/components/ClientHome";
 import { getAllEbooks } from "@/lib/ebooks";
-import { hasAvailableLinks } from "@/lib/ebook-utils";
 
 export default async function Home() {
   const ebooks = await getAllEbooks();
-  const availableEbooks = ebooks.filter(hasAvailableLinks);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -21,7 +19,7 @@ export default async function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ClientHome initialEbooks={availableEbooks} />
+      <ClientHome initialEbooks={ebooks} />
     </>
   );
 }

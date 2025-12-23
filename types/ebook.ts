@@ -12,7 +12,7 @@ export interface EbookMetadata {
     under240: string;
     logLine: string;
   };
-  links: {
+  links?: {
     goodReadsLink: string | null;
     ebookAmazonLink: string | null;
     ebookAppleLink: string | null;

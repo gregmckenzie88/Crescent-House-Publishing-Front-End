@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { X, BookOpen, Loader2 } from "lucide-react";
@@ -315,12 +316,12 @@ export function SampleChapter({
                 <p className="text-base text-muted-foreground italic mb-6 font-serif">
                   Enjoyed the preview?
                 </p>
-                {amazonLink ? (
-                  <Button 
-                    asChild
-                    variant="outline"
-                    className="border-primary/30 text-primary hover:bg-transparent hover:text-primary transition-all duration-300 uppercase tracking-widest text-xs h-10 px-6 font-sans"
-                  >
+                <Button 
+                  asChild
+                  variant="outline"
+                  className="border-primary/30 text-primary hover:bg-transparent hover:text-primary transition-all duration-300 uppercase tracking-widest text-xs h-10 px-6 font-sans"
+                >
+                  {amazonLink ? (
                     <a 
                       href={amazonLink} 
                       target="_blank" 
@@ -329,16 +330,12 @@ export function SampleChapter({
                     >
                       View on Amazon
                     </a>
-                  </Button>
-                ) : (
-                  <Button 
-                    variant="outline"
-                    onClick={() => setIsOpen(false)}
-                    className="border-primary/30 text-primary hover:bg-transparent hover:text-primary transition-all duration-300 uppercase tracking-widest text-xs h-10 px-6 font-sans"
-                  >
-                    Close Preview
-                  </Button>
-                )}
+                  ) : (
+                    <Link href={`/ebooks/${slug}/coming-soon`}>
+                      View on Amazon
+                    </Link>
+                  )}
+                </Button>
               </div>
             </div>
           </div>

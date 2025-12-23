@@ -179,28 +179,32 @@ export default async function EbookDetailPage({
                 </h3>
                 <div className="flex flex-wrap gap-4">
                   {/* E-book links */}
-                  {(ebook.links.ebookAmazonLink || ebook.links.ebookAppleLink) && (
-                    <div className="flex gap-3">
-                      {ebook.links.ebookAmazonLink && (
-                        <Button asChild variant="outline" className="h-12 px-6 border-primary/30 hover:bg-primary/10 hover:border-primary hover:text-primary transition-all uppercase tracking-wider text-xs">
-                          <TrackedLink
-                            href={ebook.links.ebookAmazonLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="gap-2"
-                            eventName="click_buy_link"
-                            eventProperties={{ 
-                              provider: "Amazon", 
-                              book: ebook.title,
-                              location: "details_page" 
-                            }}
-                          >
-                            <BookOpen className="h-4 w-4" />
-                            Amazon Kindle
-                          </TrackedLink>
-                        </Button>
+                  <div className="flex gap-3">
+                    <Button asChild variant="outline" className="h-12 px-6 border-primary/30 hover:bg-primary/10 hover:border-primary hover:text-primary transition-all uppercase tracking-wider text-xs">
+                      {ebook.links?.ebookAmazonLink ? (
+                        <TrackedLink
+                          href={ebook.links.ebookAmazonLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="gap-2"
+                          eventName="click_buy_link"
+                          eventProperties={{ 
+                            provider: "Amazon", 
+                            book: ebook.title,
+                            location: "details_page" 
+                          }}
+                        >
+                          <BookOpen className="h-4 w-4" />
+                          Amazon Kindle
+                        </TrackedLink>
+                      ) : (
+                        <Link href={`/ebooks/${slug}/coming-soon`} className="gap-2 flex items-center">
+                          <BookOpen className="h-4 w-4" />
+                          Amazon Kindle
+                        </Link>
                       )}
-                      {ebook.links.ebookAppleLink && (
+                    </Button>
+                    {ebook.links?.ebookAppleLink && (
                         <Button asChild variant="outline" className="h-12 px-6 border-primary/30 hover:bg-primary/10 hover:border-primary hover:text-primary transition-all uppercase tracking-wider text-xs">
                           <TrackedLink
                             href={ebook.links.ebookAppleLink}
@@ -219,13 +223,12 @@ export default async function EbookDetailPage({
                           </TrackedLink>
                         </Button>
                       )}
-                    </div>
-                  )}
+                  </div>
 
                   {/* Audiobook links */}
-                  {(ebook.links.audiobookAmazonLink || ebook.links.audiobookAppleLink) && (
+                  {(ebook.links?.audiobookAmazonLink || ebook.links?.audiobookAppleLink) && (
                     <div className="flex gap-3">
-                      {ebook.links.audiobookAmazonLink && (
+                      {ebook.links?.audiobookAmazonLink && (
                         <Button asChild variant="outline" className="h-12 px-6 border-primary/30 hover:bg-primary/10 hover:border-primary hover:text-primary transition-all uppercase tracking-wider text-xs">
                           <TrackedLink
                             href={ebook.links.audiobookAmazonLink}
@@ -244,7 +247,7 @@ export default async function EbookDetailPage({
                           </TrackedLink>
                         </Button>
                       )}
-                      {ebook.links.audiobookAppleLink && (
+                      {ebook.links?.audiobookAppleLink && (
                         <Button asChild variant="outline" className="h-12 px-6 border-primary/30 hover:bg-primary/10 hover:border-primary hover:text-primary transition-all uppercase tracking-wider text-xs">
                           <TrackedLink
                             href={ebook.links.audiobookAppleLink}
@@ -268,7 +271,7 @@ export default async function EbookDetailPage({
                 </div>
 
                 {/* Goodreads */}
-                {ebook.links.goodReadsLink && (
+                {ebook.links?.goodReadsLink && (
                     <div className="mt-4">
                       <TrackedLink
                         href={ebook.links.goodReadsLink}
@@ -287,11 +290,11 @@ export default async function EbookDetailPage({
                 )}
 
                  {/* No links available message */}
-                 {!ebook.links.ebookAmazonLink &&
-                  !ebook.links.ebookAppleLink &&
-                  !ebook.links.audiobookAmazonLink &&
-                  !ebook.links.audiobookAppleLink &&
-                  !ebook.links.goodReadsLink && (
+                 {!ebook.links?.ebookAmazonLink &&
+                  !ebook.links?.ebookAppleLink &&
+                  !ebook.links?.audiobookAmazonLink &&
+                  !ebook.links?.audiobookAppleLink &&
+                  !ebook.links?.goodReadsLink && (
                     <p className="text-sm text-muted-foreground italic">
                       Purchase links coming soon.
                     </p>
@@ -312,7 +315,7 @@ export default async function EbookDetailPage({
             <SampleChapter 
               content={sampleChapter} 
               bookTitle={ebook.title} 
-              amazonLink={ebook.links.ebookAmazonLink}
+              amazonLink={ebook.links?.ebookAmazonLink}
             />
           </div>
         )}
